@@ -30,11 +30,13 @@ img {
 	height: 100%;
 	opacity: 0;
 	transition: 0.5s;
+	will-change: opacity; /*브라우저에 미리 바뀔 것을 알려줌*/
 }
 .visible{
 	opacity: 1;
 }
 .scroll-graphic{
+	overflow: hidden;
 	position: sticky; /*이미지가 상단에 붙어있게 하는 포지션값. 익스플로러는 지원이 안됨.*/
 	top: 0;
 	height: 100vh;
@@ -51,4 +53,20 @@ img {
 }
 .scene-img{
 	max-height: 100vh;
+}
+.bird{
+	position: absolute;
+	left: 0;
+	bottom: 70%;
+	width: 100px;
+	transform: translateX(-100%);
+	transition: 1.5s 0.3s linear;
+}
+[data-num = "5"] .bird{
+	left: 30%;
+	bottom: 30%;
+}
+.global-footer{
+	padding: 2rem 0;
+	text-align: center;
 }
