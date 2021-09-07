@@ -1,0 +1,48 @@
+@charset 'utf-8';
+
+html {
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 14px;
+}
+body {
+    overflow-x: hidden; /*기본적으로 가로스크롤을 안생기게 하기 위해*/
+    color: rgb(29, 29, 31);
+    letter-spacing: -0.05em;
+    background: white;
+}
+p {
+    line-height: 1.6;
+}
+a {
+    color: rgb(29, 29, 31);
+    text-decoration: none;
+}
+
+.global_nav {
+    height: 44px;
+}
+.local_nav {
+    height: 52px;
+    border-bottom: 1px solid #ddd;
+}
+.global_nav_links,
+.local_nav_links {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1000px; /*최대 길이를 1000픽셀로. 화면이 줄어들면 자연스럽게 줄어들게*/
+    height: 100%;
+    margin: auto;
+}
+.local_nav_links .product_name { /*적용 우선순위에서 밀려났기 때문에 구체성 높여줌*/
+    margin-right: auto; /*여백을 전부 써서 채움*/
+    font-size: 1.4rem;
+    font-weight: bold;
+}
+.local_nav_links a {
+    font-size: 0.8rem;
+}
+.local_nav_links a:not(.product_name) { /*a:not() - 괄호 내부의 조건을 가진 요소를 제외한 a 태그*/
+    margin-left: 2em;
+}
+
