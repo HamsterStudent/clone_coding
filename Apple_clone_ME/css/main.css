@@ -20,10 +20,18 @@ a {
 
 /* 네비게이션설정 시작 */
 .global_nav {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
     height: 44px;
     padding: 0 1rem;
 }
 .local_nav {
+    position: absolute;
+    top: 45px;
+    left: 0;
+    width: 100%;
     height: 52px;
     border-bottom: 1px solid #ddd;
     padding: 0 1rem;
@@ -52,6 +60,7 @@ a {
 
 /* 본문설정 시작 */
 .scroll-section {
+    border: 2px dotted green;
     padding-top: 50vh;
 }
 #scroll-section-0 h1 {
