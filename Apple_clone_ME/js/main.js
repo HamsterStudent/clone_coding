@@ -51,9 +51,22 @@
             sceneInfo[i].scrollHeight = sceneInfo[i].heightNum * window.innerHeight;
             sceneInfo[i].objs.container.style.height = `${sceneInfo[i].scrollHeight}px`;
         }
+
+        //새로고침해도 스크롤 섹션이 그 위치에 있게 세팅
+        yOffset = window.pageYOffset;
+        let totalScrollheight = 0;
+        for(let i = 0; i < sceneInfo.length; i++){
+            totalScrollheight += sceneInfo[i].scrollHeight;
+            if(totalScrollheight >=  yOffset){
+                currentScene = i;
+                break;
+            }
+        }
+        //스크롤 될 때 id값을 show-scene-현재색션값 으로 설정
+        document.body.setAttribute('id', `show-scene-${currentScene}`);
     }
     
-    function scrollLoop(){ //애니메이션 활성화시킬 씬이 몇번째 씬인지 알아내는
+    function scrollLoop(){ //애니메이션 활성화시킬 씬이 몇번째 씬인지 알아내는 함수
         // console.log(yOffset);
         prevScrollHeight = 0; //scrollHeight의 값 누적을 막기 위해
         for(let i = 0; i < currentScene; i++) {
@@ -68,18 +81,22 @@
             currentScene--;
         }
 
-        console.log(currentScene)
+        // console.log(currentScene)
+
+        document.body.setAttribute('id', `show-scene-${currentScene}`);
     }
 
 
-    window.addEventListener( 'resize', setLayout )
+    
 
     window.addEventListener( 'scroll', ()=> { //스크롤은 복잡하게 동작하기 때문에 여러 함수 사용
         yOffset = window.pageYOffset;
         scrollLoop();
 
     });
-
-    setLayout();
     
+    window.addEventListener('load', setLayout);
+    window.addEventListener( 'resize', setLayout )
+
+
 })();
