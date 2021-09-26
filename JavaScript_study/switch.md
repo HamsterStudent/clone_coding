@@ -1,6 +1,7 @@
 # switch
 - 조건문에서 비교해야 할 값이 많은 경우 if보다 switch문을 사용하여 가독성을 높인다.
-    ex)
+
+# ex)
     switch (condition){
         case 'Oranges':
             console.log('Orange'); // condition의 값이 Oranges면 콘솔에 Orange를 띄운다
