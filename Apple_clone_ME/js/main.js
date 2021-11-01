@@ -139,7 +139,7 @@
         const scrollHeight = sceneInfo[currentScene].scrollHeight;
         const scrollRatio = ( yOffset - prevScrollHeight ) / scrollHeight; //현재 씬의 scrollHeight
 
-        console.log(currentScene);
+        // console.log(currentScene);
 
         // console.log( currentScene, currentYOffset);
 
