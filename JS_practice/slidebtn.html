@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        html,body{
+            height: 100%;
+            overflow: hidden;
+        }
+        body,p,ul,li{
+            margin: 0px;
+            padding: 0px;
+            list-style: none;
+        }
+
+        body{
+            background: burlywood;
+        }
+
+        #visual_wrap{
+            width: 100%;
+            height: 470px;
+            float: left;
+            margin-top: 100px;
+            overflow: hidden;
+            border-top: solid 1px white;
+            border-bottom: solid 1px white;
+            box-sizing: border-box;
+        }
+
+        #visual_inner{
+            width: 980px;
+            height: 470px;
+            margin: 0px auto;
+            position: relative;
+            left: 0px;
+            top: 0px;
+        }
+
+        #visual_list{
+            width: 100%;
+            height: 470px;
+            position: relative;
+            left: 0px; top: 0px;
+        }
+
+        #visual_list li{
+            width: 980px;
+            height: 470px;
+            float: left;
+        }
+
+        #visual_list li img{
+            display: block;
+            width: 100%;
+        }
+
+        #prev_btn{
+            display: block;
+            position: absolute;
+            left: 0px;
+            top: 45%;
+        }
+
+        #next_btn{
+            display: block;
+            position: absolute;
+            right: 0px;
+            top: 45%;
+        }
+    </style>
+
+    <title>slidebtn</title>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.7.1/gsap.min.js"></script>
+
+    <script>
+
+        document.addEventListener('DOMContentLoaded', ()=>{
+            
+            const visualWrap = document.querySelector('#visual_wrap')
+            const visualInner = document.querySelector('#visual_inner')
+            const visualList = document.querySelector('#visual_list')
+            const visualLi = document.querySelectorAll('#visual_list>li')
+
+            const nextBtn = document.querySelector('#next_btn')
+            const prevBtn = document.querySelector('#prev_btn')
+
+            let visualLength = visualLi.length
+            // alert(visualLength)
+            let visualWidth = visualInner.offsetWidth
+            // alert(visualWidth)
+            let isSlide = false;
+
+            init();
+            initEvent();
+
+            startAutoPlay();
+            
+            function init(){
+
+                let lastvisualLi = visualList.lastElementChild;
+
+                visualList.style.width = visualWidth * visualLength + "%"
+                gsap.set(visualList, { width: visualWidth * visualLength })
+                visualList.prepend(lastvisualLi);
+                gsap.set(visualList, { left: -visualWidth * 2 })
+
+            }
+
+            function initEvent(){
+
+                nextBtn.addEventListener('click', slideNext)
+                prevBtn.addEventListener('click', slidePrev)
+                visualWrap.addEventListener('mouseenter', stopAutoPlay)
+                visualWrap.addEventListener('mouseleave', startAutoPlay)
+
+            }
+
+            function slideNext(){
+                
+                if(isSlide == false){
+                    isSlide = true;
+                    let currentPosition = visualList.offsetLeft;
+
+                    gsap.to(visualList, { left: currentPosition - visualWidth, duration: 0.5, ease: "power1.out", onComplete: ()=>{
+                        visualList.append( visualList.firstElementChild )
+                        gsap.set( visualList, { left: -visualWidth * 2 })
+                        isSlide = false;
+                    }})
+                }
+
+            }
+
+            function slidePrev(){
+                
+                if(isSlide == false){
+                    isSlide = true;
+                    let currentPosition = visualList.offsetLeft;
+
+                    gsap.to(visualList, { left: currentPosition + visualWidth, duration: 0.5, ease: "power1.out", onComplete: ()=>{
+                        visualList.prepend( visualList.lastElementChild )
+                        gsap.set( visualList, { left: -visualWidth * 2 })
+                        isSlide = false;
+                    }})
+                }
+
+            }
+
+            function stopAutoPlay(){
+                clearInterval(timer);
+            }
+
+            function startAutoPlay(){
+                timer = setInterval( slideNext,2000 )
+            }
+
+        })
+
+    </script>
+
+
+</head>
+<body>
+    
+    <div id="visual_wrap">
+        <div id="visual_inner">
+
+            <ul id="visual_list">
+                <li><img src="images/img01.jpg" alt=""></li>
+                <li><img src="images/img02.jpg" alt=""></li>
+                <li><img src="images/img03.jpg" alt=""></li>
+                <li><img src="images/img04.jpg" alt=""></li>
+                <li><img src="images/img05.jpg" alt=""></li>
+            </ul>
+
+            <span id="prev_btn"><img src="images/prev_btn.png" alt=""></span>
+            <span id="next_btn"><img src="images/next_btn.png" alt=""></span>
+
+        </div>
+    </div>
+
+</body>
+</html>
