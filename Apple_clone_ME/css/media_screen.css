@@ -20,6 +20,13 @@
     .desc-message {
         width: 20%;
     }
+    #scroll-section-2 .b {
+        top: 20%;
+        left: 53%;
+    }
+    #scroll-section-2 .c {
+        left: 55%;
+    }
     .mid-message {
         font-size: 4vw;
     }
