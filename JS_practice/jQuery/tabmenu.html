@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>tabmenu</title>
+
+  <style>
+  
+  ul,li{
+	  margin:0;	padding:0; list-style:none;
+  }
+
+  #wrap{
+    width:500px;	position:absolute; left:50%; margin-left:-250px; top:200px; 
+  }
+  ul#tabmenu_list li{	
+    width:100px; height:40px; float:left;
+  }
+  ul#tabmenu_list li a{
+    display:block; width:100px; height:40px; 
+    border: solid 1px palevioletred;
+    box-sizing: border-box;      
+    font:normal 12px/40px Arial; color:#000000; text-align:center; text-decoration:none;
+  } 
+  ul#tabmenu_list li a.selected{
+    background:pink;    
+    color:white;
+    -webkit-transition:0.3s ease;     
+  }
+  ul#panel_list{
+    clear:both; border:1px solid palevioletred; 
+    border-top:none;
+   
+  }
+  ul#panel_list li{    
+    padding:10px;
+    text-indent:1em;
+    color:#333;
+    background:#FFFFFF;
+  }
+    
+  
+  </style>
+
+
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js'></script>
+  <!--jQuery 소스삽입  cdnjs 플러그인 사용 -->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js'></script>
+  <!--jQuery-ui 소스삽입 (aniamtion 기능, 다양한 ui component)  cdnjs 플러그인 사용 -->
+
+  <script>    
+
+  /*
+    	
+		$(document).ready(function() {
+
+        var $tabMenu=$("#tabmenu_list").find("a"); // 모든 tabMenu 지정 
+        var $panel=$("#panel_list").children(); // 모든 panel 지정 
+
+        $panel.hide(); // 모든 panel 안보이게 초기값적용 
+        $panel.eq(0).show(); // 처음보여줄 panel 만 보이게 적용 
+        
+        $tabMenu.eq(0).addClass("selected") // addClass() 함수를 활용하여 처음 tabMenu a 활성화 지정 
+        					
+				$tabMenu.on("click focus",onTabMenuClick); // 모든 tabMenu 이벤트 적용  ( focus 이벤트추가 - 웹접근성 )	
+           
+			
+        function onTabMenuClick(){
+          
+          var clickNum=$tabMenu.index($(this)) // index()	함수를 활용하여 클릭한 tabMenu 순번구함 		
+          
+          $panel.hide(); // 기존활성화된 모든 panel 안보이게 설정 
+          $panel.eq(clickNum).show() // 클릭한 tabMenu 의 같은 순번의 panel만 보이게설정 
+          
+          $tabMenu.removeClass("selected"); 
+          // removeClass() 함수를 활용하여 모든 tabMenu 비활성화 
+          $(this).addClass("selected"); // 클릭한 tabMenu a 테그만 활성화 
+         
+        }
+
+
+    });
+
+    */
+
+
+    // 매개변수 활용 및 함수 그룹화 
+
+    $(document).ready(function(){
+
+      var $tabMenu; // 모든 tabMenu 전역변수 설정 
+      var $panel; // 모든 panel 전역변수 설정 
+
+      init(); // 초기설정 함수 실행 
+      inEvent() // 이벤트 함수 실행 
+      
+      showPanel(0); // panel 보여주는 함수실행 ( 매개변수 활용 )
+      tabMenuActive(0); // tabMenu 활성화 함수실행 (매개변수 활용 )
+
+
+      function init(){ // 초기설정함수 
+
+        $tabMenu=$("#tabmenu_list").find("a"); // 모든 tabMenu a 테그로 설정 ( tab 키보드 접근 - 웹접근성 )
+        $panel=$("#panel_list").children(); // 모든 panel 설정 
+        clickNum=0; // 클릭한 메뉴순번 초기값 0 지정 
+
+
+      }
+
+      function inEvent(){ // 이벤트 함수 
+
+        $tabMenu.on("click focus",onTabMenuClick)
+
+      }
+
+
+      function onTabMenuClick(){ // 클릭실행 함수 
+
+        clickNum=$tabMenu.index($(this)); // 클릭한 tabMenu 순번구함 
+        
+        showPanel(clickNum); // panel 보여주는 함수실행 ( 매개변수 - 클릭한 순번 적용 )
+        tabMenuActive(clickNum) // tabMenu 활성화 함수실행 ( 매개변수 - 클릭한 순번 적용 )
+
+      }
+
+      function showPanel(selectNum){ // panel 보여주는 함수 ( 매개변수 활용 )
+
+        $panel.hide(); // 기존활성화된 모든 panel 안보이게 설정 
+        $panel.eq(selectNum).show() // 클릭한 tabMenu 의 같은 순번의 panel만 보이게설정 
+
+      }
+
+      function tabMenuActive(selectNum){ // tabMenu 활성화 함수 ( 매개변수 활용 )
+
+        $tabMenu.removeClass() // removeClass() 함수를 활용하여 모든 tabMenu 비활성화 
+        $tabMenu.eq(selectNum).addClass("selected")
+        // 클릭한 순번의 tabMenu 활성화 
+      }
+
+
+    })
+    
+    
+  </script>
+
+
+</head>
+<body>
+
+  <div id="wrap">
+    <ul id="tabmenu_list">
+      <li><a href="#">JavaScript</a></li>
+      <li><a href="#">CSS</a></li>
+      <li><a href="#">HTML</a></li>
+      <li><a href="#">jQuery</a></li>
+      <li><a href="#">XHTML</a></li>
+    </ul>
+    
+    <ul id="panel_list">
+      <li>
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse congue elit eu mauris sollicitudin dictum. Phasellus nec felis ut arcu placerat tincidunt. Vestibulum luctus mauris ac ante molestie eleifend. Quisque dapibus nulla ac purus volutpat posuere a quis nisl. Nam condimentum purus vitae nibh feugiat imperdiet. Cras purus mi, egestas vitae imperdiet volutpat, suscipit nec odio. Maecenas elementum aliquam metus nec ultrices. Suspendisse potenti. Praesent lobortis gravida massa in volutpat. Nunc id mauris id orci congue malesuada. Aliquam vel mauris risus, sit amet laoreet sapien. Maecenas varius gravida purus vel pharetra. Sed quis leo id mi laoreet accumsan. Vestibulum ac mauris purus, nec rutrum sem. Sed euismod magna a lacus consectetur in mattis quam suscipit. Phasellus nec enim libero. Donec sit amet justo diam. In hac habitasse platea dictumst. Sed nibh libero, iaculis eget aliquet eu, rhoncus nec ligula. 
+      </li>
+      <li>
+Nam cursus molestie erat, a sodales erat sollicitudin ut. Maecenas nec urna mi, eu congue turpis. Duis vitae volutpat lorem. Ut vulputate tempor elit, vitae iaculis elit sollicitudin at. Ut gravida fermentum tempor. Mauris metus ante, volutpat et porta a, malesuada vel purus. In lobortis ullamcorper lorem eu malesuada. Nullam sollicitudin, urna eu euismod suscipit, eros sapien adipiscing arcu, sit amet ultricies lacus elit sed urna. Nam scelerisque, nulla eu mollis elementum, ipsum tortor ullamcorper felis, eget laoreet diam turpis dignissim metus. In eget lectus sit amet mi pretium pellentesque varius vitae augue. Integer mattis, elit nec adipiscing rhoncus, elit tellus congue sapien, et auctor mi nisi in purus. Curabitur commodo, neque sed ornare porta, purus magna rhoncus eros, quis consectetur ipsum erat ac mi. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Fusce sed turpis tortor, quis euismod enim. Integer faucibus venenatis egestas. Etiam eu metus et sem bibendum fermentum. Sed dui ante, sollicitudin at tincidunt at, pretium sit amet diam. Nunc porttitor tristique est sed pulvinar. Fusce eu ligula vitae orci venenatis sagittis sed quis ipsum. 
+      </li>
+      <li>
+Pellentesque in metus leo. Praesent porta, dolor nec mattis ullamcorper, velit purus mollis enim, nec tincidunt magna massa ornare elit. In ipsum enim, pellentesque vitae gravida ultrices, aliquet nec ante. Mauris sed nunc ut ligula dictum convallis vel et nunc. Aenean eget enim vitae nulla lacinia consequat. Quisque blandit, ante vel sodales sollicitudin, neque ante elementum leo, ut consequat dui risus ut purus. Vestibulum viverra lacus at felis dignissim bibendum. Maecenas interdum nisl eu metus porta luctus. Suspendisse nulla neque, ultricies nec facilisis nec, mollis id sapien. Donec nec quam et felis pulvinar fringilla a non orci. Maecenas tincidunt magna a sem faucibus eu interdum magna aliquam. Suspendisse a diam lorem, nec malesuada sapien. Nam a scelerisque velit. Integer commodo malesuada odio, sit amet rutrum ante viverra ut. In egestas, arcu id pretium tempus, ligula nibh interdum enim, non bibendum velit felis sed augue. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Praesent augue eros, posuere pharetra pharetra eu, feugiat eu velit. 
+      </li>
+      <li>
+Vestibulum a quam scelerisque odio ultricies mollis eget a leo. Morbi dictum, velit lobortis hendrerit tincidunt, lacus nisl rhoncus felis, commodo sollicitudin magna augue non est. Nunc in felis quis purus dignissim blandit vel ut erat. In hac habitasse platea dictumst. Nullam euismod auctor rhoncus. Proin et sem ac neque placerat vulputate. Nullam consequat purus eget libero posuere pulvinar. Aenean luctus luctus leo nec vehicula. Praesent eleifend nibh sed neque vestibulum hendrerit. Nulla suscipit vehicula sem, quis congue ligula gravida vel. Aliquam risus urna, pretium eget porttitor hendrerit, gravida at libero. Curabitur nec luctus risus. Etiam ullamcorper fringilla nisl hendrerit convallis. Duis in nibh tellus. Donec porta nibh id purus mollis sodales. Nam eget libero vel metus congue ultricies ut vitae nibh. Sed ac justo ac eros luctus ullamcorper ut tincidunt nibh. Fusce dapibus bibendum urna, id tempor turpis sodales sed. Nam dui purus, posuere vel placerat eu, posuere non magna. 
+      </li>
+      <li>
+Vestibulum consequat consequat aliquet. Aenean ut nunc dolor, vel dictum mauris. Proin neque eros, tincidunt at faucibus a, dapibus sit amet tellus. Etiam rutrum pharetra risus porta ullamcorper. Nunc convallis orci at massa suscipit porta. Sed interdum suscipit dui, eu sodales odio fermentum vitae. Nunc vitae dui metus, a laoreet ante. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Sed eu mauris mi, non blandit tortor. Ut fringilla cursus justo id porta. Sed in nibh nulla. Aenean consectetur arcu vel eros facilisis ac luctus lectus placerat. Fusce risus dui, adipiscing ut tempus non, malesuada quis velit. 
+      </li>
+    </ul>
+  </div>
+  
+</body>
+</html>
